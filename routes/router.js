@@ -5,7 +5,9 @@ const Item = require('../model/Item.js');
 router.post('/', async (req, res, next) => {});
 router.post('/seller', async (req, res, next) => {});
 
-router.get('/', async (req, res, next) => {});
+router.get('/', async (req, res, next) => {
+  return res.render('index');
+});
 router.get('/seller', async (req, res, next) => {
   try {
     console.log(req.session);
