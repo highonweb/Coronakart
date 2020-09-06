@@ -9,16 +9,81 @@
       type="image/x-icon"
     />
     <link rel="stylesheet" href="main.css" />
-    <title>Cornucopia</title>
+    <title>Coronacopia</title>
   </head>
   <body>
-    <%- include ('partials/navbar') %> <%- include ('partials/header') %>
-    <a href="#end"
+    <%- include ('partials/navbar') %> <%- include ('partials/homepage') %>
+    <a href="#about"
       ><div class="arrow">
         <span></span>
         <span></span>
         <span></span></div
     ></a>
+    <section id="about">
+      <div class="content">
+        <div class="wrapper">
+          <img class="ab" src="images/ab1.jpg" alt="" />
+
+          <img class="over" src="images/ab2.jpg" alt="" />
+        </div>
+        <div class="text">
+          <h1 class="title_ab">About Us</h1>
+          <p class="description">
+            We at Coronacopia are working tirelessly to make sure the gap
+            between our buyers and sellers stay the least as possible. We
+            believe we need to be there for everyone in this substantial
+            Crisis.so we are delivering your supplies round the clock to all the
+            survivors of this appocalypse
+          </p>
+          <br /><br />
+
+        </div>
+
+      </div>
+      <a href="#contact"
+      ><div class="arrow">
+        <span></span>
+        <span></span>
+        <span></span></div
+    ></a>
+    </section>
+    <section id="contact">
+      <div class="content">
+        <div class="text">
+          <h1 class="title_ab">Contact Us</h1>
+          <form action="/" method="post">
+          <input placeholder="Name" type="text"><br>
+          <input placeholder="Email " type="text"><br>
+          <textarea placeholder="Message" type="text"><br>
+          </textarea><br>
+    
+      <br>
+          <a href="" class="hlinks">Submit</a>
+          <style>
+            input[type='text'] {
+              -webkit-appearance: none;
+              border-radius: 10px;
+              font-size: 20px;
+	margin: 10px;
+	width: 20vw;
+  height: 5vh;
+  padding: 10px;
+}
+textarea{
+  all: unset;
+  background-color: white;
+              border-radius: 10px;
+	margin: 10px;
+  width: 370px;
+  font-size: 20px;
+  padding: 10px;
+  
+	height: 150px;
+}
+          </style>
+        </div>
+      </div>
+    </section>
     <script src="index.js"></script>
   </body>
 </html>
