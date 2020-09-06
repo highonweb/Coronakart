@@ -17,8 +17,14 @@ router.get('/seller', async (req, res, next) => {
   }
 });
 
-router.get('/customer', async (req, res, next) => {
+router.get('/login', async (req, res, next) => {
   try {
+    return res.render('login');
+  } catch (error) {}
+});
+router.get('/signup', async (req, res, next) => {
+  try {
+    return res.render('signup');
   } catch (error) {}
 });
 
