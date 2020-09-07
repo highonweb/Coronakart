@@ -31,9 +31,16 @@ app.use(express.urlencoded({extended: true}));
 app.set('view engine', 'ejs');
 // serve static files
 app.use(express.static('public'));
-
 const routes = require('./routes/router');
 app.use('/', routes);
+app.use(function (req, res, next) {
+  if (req.session.userId == undefined) {
+    return res.send('User Unauthorised');
+  }
+  next();
+});
+const authroutes = require('./routes/authroutes');
+app.use('/', authroutes);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
