@@ -17,13 +17,16 @@ so click cautiously"
 
   <body>
     <div class="box">
-      <form method="post" action="/">
+      <form method="post" action="/signin">
         <h2 class="text-center"><strong>Create</strong> an account.</h2>
+        <input
+          type="text"
+          name="username"
+          placeholder="Username"
+          autofocus=""
+        />
         <input type="email" name="email" placeholder="Email" autofocus="" />
-        <select name="role" id="role">
-          <option value="Buyer">Buyer</option>
-          <option value="Seller">Seller</option>
-        </select>
+
         <input type="password" name="password" placeholder="Password" />
         <input
           type="password"
@@ -32,7 +35,7 @@ so click cautiously"
         />
 
         <button class="signup" type="submit">Sign Up</button>
-        <a class="already" href="login"
+        <a class="already" href="signin"
           >You already have an account? Login here.</a
         >
       </form>
