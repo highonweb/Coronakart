@@ -3,6 +3,7 @@ const app = express();
 const mongoose = require('mongoose');
 const session = require('express-session');
 const dotenv = require('dotenv').config();
+const bcrypt = require('bcrypt');
 const MongoStore = require('connect-mongo')(session);
 const mongoDB = process.env.mongo;
 
