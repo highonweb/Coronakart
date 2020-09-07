@@ -5,6 +5,7 @@
   }
   .profileimage {
     border-radius: 50%;
+    width: 100px;
   }
   .sidenav {
     height: 100%;
@@ -60,12 +61,11 @@
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
   <img
     class="profileimage"
-    src="https://randomuser.me/api/portraits/women/17.jpg"
+    src=" https://api.adorable.io/avatars/100/<%= user.name %> "
     alt=""
   />
-  <a href="logout">Logout</a>
   <a href="profile">Profile</a>
-  <a href="myorders">My Orders</a>
+  <a href="logout">Logout</a>
 </div>
 
 <script>

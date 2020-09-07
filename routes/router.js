@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const User = require('../model/user.js');
 const express = require('express');
 const router = express.Router();
@@ -18,6 +19,7 @@ router.post('/buyerlog', async (req, res, next) => {
       return res.send('Wrong username or password.');
     } else {
       req.session.userId = user._id;
+      return res.redirect('/buyer');
     }
   });
 });

@@ -14,7 +14,8 @@ router.get('/seller', async (req, res, next) => {
 });
 router.get('/buyer', async (req, res, next) => {
   try {
-    const user = User.findById(req.session.userId);
+    const user = await User.findById(req.session.userId);
+    console.log(user);
     return res.render('buyer', {user: user});
   } catch (error) {
     console.log(error);
@@ -22,16 +23,14 @@ router.get('/buyer', async (req, res, next) => {
 });
 
 router.get('/logout', async (req, res, next) => {
-  if (req.session) {
-    // delete session object
-    req.session.destroy(function (err) {
-      if (err) {
-        return next(err);
-      } else {
-        return res.redirect('/');
-      }
-    });
-  }
+  // delete session object
+  req.session.destroy(function (err) {
+    if (err) {
+      return next(err);
+    } else {
+      return res.redirect('/');
+    }
+  });
 });
 
 router.post('/remove', async (req, res, next) => {});

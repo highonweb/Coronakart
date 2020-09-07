@@ -18,7 +18,7 @@ const UserSchema = new Schema({
 // Compile model from schema
 
 UserSchema.statics.authenticate = function (username, password, callback) {
-  User.findOne({username: username}).exec(function (err, user) {
+  User.findOne({email: username}).exec(function (err, user) {
     if (err) {
       return callback(err);
     } else if (!user) {
@@ -48,5 +48,5 @@ UserSchema.pre('save', function (next) {
   });
 });
 
-const user = mongoose.model('user', UserSchema);
-module.exports = user;
+const User = mongoose.model('user', UserSchema);
+module.exports = User;

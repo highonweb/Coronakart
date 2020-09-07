@@ -13,11 +13,13 @@
   <div class="profile">
     <img
       class="profileimg"
-      src="https://randomuser.me/api/portraits/women/17.jpg"
+      src="https://api.adorable.io/avatars/100/<%= user.name %> "
       alt=""
     />
   </div>
-  <div class="cart"><i class="fas fa-shopping-cart"></i></div>
+  <div class="cart">
+    <i class="fas fa-shopping-cart"></i> &nbsp;<%= user.products.length %>
+  </div>
 </div>
 
 <style>
@@ -75,7 +77,12 @@
   }
   .header {
     display: grid;
-    grid-template-columns: 1fr 2fr 20fr 1fr 1fr;
-    background-image: linear-gradient(15deg, #13547a 0%, #80d0c7 100%);
+    grid-template-columns: 1fr 2fr 19fr 1fr 2fr;
+    background-image: linear-gradient(
+      15deg,
+      #13547a 0%,
+      #80d0c7 50%,
+      #13547a 100%
+    );
   }
 </style>
