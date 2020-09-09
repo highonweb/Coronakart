@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cornucopia</title>
+  </head>
+  <body>
+    <% if (user.usertype=='seller') { %>
+    <div class="update">
+      <div class="newitem">
+        <form action="/seller/addp" enctype="multipart/form-data" method="post">
+          <input type="text" name="itemname" id="name" placeholder="name" />
+          <br />
+          <textarea placeholder="Description" name="desc"></textarea><br />
+          <input placeholder="price" type="number" name="price" /><br />
+          <input type="file" name="img" id="img" /><br />
+          <input
+            placeholder="Stock"
+            type="number"
+            name="stock"
+            id="stock"
+          /><br />
+          <input type="submit" value="SUBMIT" />
+        </form>
+      </div>
+    </div>
+    <div class="add" onclick="openadd(this)"><i class="fas fa-plus"></i></div>
+    <script>
+      const openadd = (btn) => {
+        btn.style.transform = 'rotate(45deg)';
+        btn.setAttribute('onclick', 'closeadd(this)');
+        document.querySelector('.update').style.height = '100vh';
+        document.querySelector('#main').style.display = 'none';
+      };
+      const closeadd = (btn) => {
+        btn.style.transform = 'rotate(90deg)';
+        btn.setAttribute('onclick', 'openadd(this)');
+        document.querySelector('.update').style.height = '0vh';
+        document.querySelector('#main').style.display = 'block';
+      };
+    </script>
+    <% } %> <%- include ('partials/sidenav') %>
+
+    <div id="main">
+      <%- include ('partials/header') %>
+      <div class="dash">
+        <div class="items">
+          <% if (user.usertype =='seller') { %> <% for( let i = 0; i <
+          user.products.length; i++ ) { %> <% element = user.products[i] %>
+
+          <div class="products">
+            <a href="item<%= element._id %> ">
+              <%= element.name %> <br />
+              <%= element.price %> <br />
+              <img
+                src="data:image/jpeg;base64,<%=element.image.toString('base64')%>"
+                alt=""
+                class="dash-img"
+              />
+            </a>
+          </div>
+          <% } } else { %> <% for( let i = 0; i < items.length; i++ ) { %> <%
+          element = items[i] %>
+          <a href="item<%= element._id %> ">
+            <div class="products">
+              <%= element.name %> <br />
+              <%= element.price %> <br />
+              <img
+                src="data:image/jpeg;base64,<%=element.image.toString('base64')%>"
+                alt=""
+                class="dash-img"
+              /></div
+          ></a>
+          <% }} %>
+        </div>
+      </div>
+    </div>
+
+    <style>
+      .items {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      a {
+        text-decoration: none;
+        color: white;
+      }
+      .dash-img {
+        width: 360px;
+        height: 240px;
+        object-fit: cover;
+      }
+      .products {
+        border-radius: 20px;
+        background-image: linear-gradient(180deg, #13547a 0%, #80d0c7 100%);
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
+        text-align: center;
+        width: 20vw;
+        transition: linear 200ms;
+        padding: 20px;
+        font-size: 24px;
+        margin: 1vw;
+        color: white;
+      }
+      .products:hover {
+        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.4);
+      }
+      .add {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: teal;
+        color: white;
+        font-size: 20px;
+        transition: cubic-bezier(0.175, 0.885, 0.32, 1.275) 2s;
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .update {
+        width: 100vw;
+        height: 0vw;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-image: linear-gradient(to top, #09203f 0%, #537895 100%);
+        color: white;
+        transition: cubic-bezier(0.25, 0.46, 0.45, 0.94) 3s;
+        overflow: hidden;
+      }
+      input[type='text']:not(.sbar),
+      input[type='number'] {
+        -webkit-appearance: none;
+        border-radius: 10px;
+        font-size: 20px;
+        margin: 10px;
+        width: 20vw;
+        height: 4vh;
+        padding: 10px;
+      }
+      textarea {
+        all: unset;
+        background-color: white;
+        border-radius: 10px;
+        color: black;
+        margin: 10px;
+        width: 370px;
+        font-size: 20px;
+        padding: 10px;
+
+        height: 150px;
+      }
+      .newitem {
+        text-align: center;
+      }
+      input[type='submit'] {
+        background-image: linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%);
+        color: whitesmoke;
+        font-size: 2vw;
+        font-family: 'lemon', cursive;
+        padding: 10px;
+        margin-top: 20px;
+        cursor: pointer;
+        border-radius: 100px;
+        text-decoration: none;
+      }
+      input[type='submit']:hover {
+        background-image: linear-gradient(to right, #43e97b 0%, #38f9d7 100%);
+      }
+    </style>
+    <script
+      src="https://kit.fontawesome.com/c5b9bcd338.js"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

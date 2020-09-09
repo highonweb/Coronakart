@@ -17,8 +17,11 @@ so click cautiously"
 
   <body>
     <div class="box">
-      <form method="post" action="/buyer">
-        <h2 class="text-center"><strong>Create</strong> an account.</h2>
+      <form method="post" action="/<%= action %> ">
+        <h2 class="text-center">
+          <strong>Create</strong> an <% if (action =='seller') { %> seller <% }
+          %> account.
+        </h2>
         <input type="text" name="name" placeholder="Username" autofocus="" />
         <input type="email" name="email" placeholder="Email" autofocus="" />
 
@@ -30,7 +33,14 @@ so click cautiously"
         />
 
         <button class="signup" type="submit">Sign Up</button>
-        <a class="already" href="signin"
+        <a
+          class="already"
+          href="<% if (action == 'seller') { %>
+         signinseller
+        
+        <% } else { %>
+          signin
+          <% } %>"
           >You already have an account? Login here.</a
         >
       </form>

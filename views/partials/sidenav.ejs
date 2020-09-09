@@ -2,6 +2,7 @@
   body {
     font-family: 'Lato', sans-serif;
     transition: background-color 0.5s;
+    margin: 0;
   }
   .profileimage {
     border-radius: 50%;
@@ -44,7 +45,7 @@
 
   #main {
     transition: margin-left 0.5s;
-    padding: 16px;
+    margin: 0;
   }
 
   @media screen and (max-height: 450px) {
@@ -64,6 +65,7 @@
     src=" https://api.adorable.io/avatars/100/<%= user.name %> "
     alt=""
   />
+  <h1><%= user.usertype %></h1>
   <a href="profile">Profile</a>
   <a href="logout">Logout</a>
 </div>

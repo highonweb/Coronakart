@@ -1,16 +1,26 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const Schema = mongoose.Schema;
-
+const Item = require('./item.js');
 const UserSchema = new Schema({
   usertype: String,
   name: String,
   email: {type: String, unique: true},
-  products: [{}],
+  products: {
+    type: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: Item,
+      },
+    ],
+  },
   history: [
     {
-      date: Date,
-      purchase: String,
+      date: {type: Date, default: Date.now()},
+      purchase: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: Item,
+      },
     },
   ],
   password: String,
@@ -19,10 +29,11 @@ const UserSchema = new Schema({
 
 UserSchema.statics.authenticate = function (username, password, callback) {
   User.findOne({email: username}).exec(function (err, user) {
+    console.log(username, password);
     if (err) {
       return callback(err);
     } else if (!user) {
-      var err = new Error('User not found.');
+      let err = new Error('User not found.');
       err.status = 401;
       return callback(err);
     }
@@ -36,9 +47,9 @@ UserSchema.statics.authenticate = function (username, password, callback) {
   });
 };
 
-//hashing a password before saving it to the database
+// hashing a password before saving it to the database
 UserSchema.pre('save', function (next) {
-  var user = this;
+  const user = this;
   bcrypt.hash(user.password, 10, function (err, hash) {
     if (err) {
       return next(err);

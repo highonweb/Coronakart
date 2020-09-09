@@ -12,15 +12,24 @@
 
 <body>
     <div class="box" >
-        <form method="post" action="/buyerlog">
+        <form method="post" action="/<%= action %> ">
             <div class=brand><img class="logo" src="images/cor.png" >
-                <h1 class="name" >Cornucopia</h1>
+                <h1 class="name" > <% if (action == 'sellerlog') { %>
+                Coronacopia <br> for sellers
+                <% } %>
+                <% if (action == 'buyerlog') { %>
+                    Coronacopia
+                    <% } %></h1>
             </div>
-            <input type="text" name="username" placeholder="username">
+            <input type="text" name="email" placeholder="username">
             <input class="form-control" type="password" name="password" placeholder="Password">
             <button class="btn btn-primary btn-block" type="submit" >Log In</button>
         </form>
-        <a class="new" href="signup">Don't have an account?Create one</a>
+        <a class="new" href="<% if (action =='sellerlog') { %>
+         signupseller
+        <% } else {%> 
+            signup
+        <% } %>">Don't have an account?Create one</a>
         </div>
     </div>
 </body>

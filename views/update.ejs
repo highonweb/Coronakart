@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <style>
+      .update {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-image: linear-gradient(to top, #09203f 0%, #537895 100%);
+        color: white;
+        transition: cubic-bezier(0.25, 0.46, 0.45, 0.94) 3s;
+        overflow: hidden;
+      }
+      input[type='text']:not(.sbar),
+      input[type='number'] {
+        -webkit-appearance: none;
+        border-radius: 10px;
+        font-size: 20px;
+        margin: 10px;
+        width: 20vw;
+        height: 4vh;
+        padding: 10px;
+      }
+      textarea {
+        all: unset;
+        background-color: white;
+        border-radius: 10px;
+        color: black;
+        margin: 10px;
+        width: 370px;
+        font-size: 20px;
+        padding: 10px;
+
+        height: 150px;
+      }
+      .newitem {
+        text-align: center;
+      }
+      input[type='submit'] {
+        background-image: linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%);
+        color: whitesmoke;
+        font-size: 2vw;
+        font-family: 'lemon', cursive;
+        padding: 10px;
+        margin-top: 20px;
+        cursor: pointer;
+        border-radius: 100px;
+        text-decoration: none;
+      }
+      input[type='submit']:hover {
+        background-image: linear-gradient(to right, #43e97b 0%, #38f9d7 100%);
+      }
+    </style>
+    <div class="update">
+      <div class="newitem">
+        <form action="/seller/updp<%= item._id %> " method="post">
+          <input
+            type="text"
+            name="name"
+            id="name"
+            placeholder="name"
+            value="<%= item.name %>"
+          />
+          <br />
+          <textarea placeholder="Description" name="description">
+<%= item.description %></textarea
+          ><br />
+          <input
+            placeholder="price"
+            type="number"
+            name="price"
+            value="<%= item.price %>"
+          /><br />
+          <input
+            placeholder="Stock"
+            type="number"
+            name="quantity"
+            id="stock"
+            value="<%= item.quantity %>"
+          /><br />
+          <input type="submit" value="SUBMIT" />
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

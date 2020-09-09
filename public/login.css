@@ -25,8 +25,8 @@ body {
 }
 
 .brand .name {
-  font-size: 50px;
-  justify-self: flex-start;
+  font-size: 30px;
+  text-align: center;
   color: #537895;
   font-family: 'Courgette', cursive;
 }
