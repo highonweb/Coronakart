@@ -53,6 +53,12 @@ router.post('/buyer', async (req, res, next) => {
     password: req.body.password,
   };
   console.log(userdata);
+  bcrypt.hash(userdata.password, 10, function (err, hash) {
+    if (err) {
+      return next(err);
+    }
+    userdata.password = hash;
+  });
   const user = await User.create(userdata);
   console.log(user);
   req.session.userId = user.id;
@@ -69,6 +75,12 @@ router.post('/seller', async (req, res, next) => {
     password: req.body.password,
   };
   console.log(userdata);
+  bcrypt.hash(userdata.password, 10, function (err, hash) {
+    if (err) {
+      return next(err);
+    }
+    userdata.password = hash;
+  });
   const user = await User.create(userdata);
   console.log(user);
   req.session.userId = user.id;

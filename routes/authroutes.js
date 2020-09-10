@@ -11,7 +11,7 @@ router.post('/signin', async (req, res, next) => {});
 
 router.get('/buyer', async (req, res, next) => {
   try {
-    const user = await User.findById(req.session.userId);
+    const user = await User.findById(req.session.userId).populate('products');
     const items = await Item.find({});
     console.log(user);
     return res.render('dashboard', {user: user, items: items});
@@ -60,6 +60,7 @@ router.post(
       price: req.body.price,
       image: image,
       quantity: req.body.stock,
+      seller: req.session.userId,
     });
     const user = await User.findByIdAndUpdate(req.session.userId, {
       $push: {products: item},
@@ -83,7 +84,8 @@ router.post('/purchase', async (req, res, next) => {
   const user = await User.findById(req.session.userId);
   user.history.push(req.body.items);
   user.save();
-
+  const seller = await User.findById(item.seller);
+  seller.history.push(item);
   console.log(user);
   res.json('success');
 });
@@ -104,7 +106,9 @@ router.post('/seller/updp:id', async (req, res, next) => {
   return res.redirect('/item' + req.params.id);
 });
 router.get('/profile', async (req, res, next) => {
-  const user = await User.findById(req.session.userId);
+  const user = await User.findById(req.session.userId)
+    .populate('products')
+    .populate('history');
   res.render('profile', {user: user});
 });
 router.post('/edit', async (req, res, next) => {});

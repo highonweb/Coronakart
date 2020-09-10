@@ -17,13 +17,14 @@
       alt=""
     />
   </div>
-  <div class="cart">
+  <div class="cart" onclick="openCart()">
     <i class="fas fa-shopping-cart"></i> &nbsp;<%= user.products.length %>
   </div>
 </div>
 
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Lemon&family=Syne:wght@500&display=swap');
+
   .sn,
   .cart {
     font-size: 60px;

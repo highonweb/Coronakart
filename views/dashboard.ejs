@@ -26,6 +26,7 @@
       </div>
     </div>
     <div class="add" onclick="openadd(this)"><i class="fas fa-plus"></i></div>
+
     <script>
       const openadd = (btn) => {
         btn.style.transform = 'rotate(45deg)';
@@ -40,8 +41,7 @@
         document.querySelector('#main').style.display = 'block';
       };
     </script>
-    <% } %> <%- include ('partials/sidenav') %>
-
+    <% } %> <%- include ('partials/sidenav') %> <%- include ('partials/cart') %>
     <div id="main">
       <%- include ('partials/header') %>
       <div class="dash">

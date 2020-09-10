@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-
+console.log('ello there');
 const itemSchema = new Schema({
   name: String,
+  seller: String,
   description: String,
   image: Buffer,
   price: String,

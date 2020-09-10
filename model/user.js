@@ -33,6 +33,7 @@ UserSchema.statics.authenticate = function (username, password, callback) {
     if (err) {
       return callback(err);
     } else if (!user) {
+      console.log('uskey');
       let err = new Error('User not found.');
       err.status = 401;
       return callback(err);
@@ -48,16 +49,6 @@ UserSchema.statics.authenticate = function (username, password, callback) {
 };
 
 // hashing a password before saving it to the database
-UserSchema.pre('save', function (next) {
-  const user = this;
-  bcrypt.hash(user.password, 10, function (err, hash) {
-    if (err) {
-      return next(err);
-    }
-    user.password = hash;
-    next();
-  });
-});
 
 const User = mongoose.model('user', UserSchema);
 module.exports = User;
