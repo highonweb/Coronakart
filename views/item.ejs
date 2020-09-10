@@ -4,88 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Coronacopia</title>
+    <link rel="stylesheet" href="item.css">
   </head>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
-    * {
-      font-family: 'Poppins', sans-serif;
-    }
-    .container {
-      margin: 0;
-      padding: 0;
-      min-height: 35vh;
-      width: 100vw;
-      background: linear-gradient(45deg, #ff057c 0%, #8d0b93 50%, #321575 100%);
-    }
-    .item-image {
-      width: 360px;
-      height: 240px;
-      object-fit: cover;
-      display: block;
-      margin: -15vh auto 0 auto;
-      border-radius: 4px;
-      border: 10px solid white;
-    }
-    .striked-price {
-      text-decoration: line-through;
-      font-size: 28px;
-      position: relative;
-      top: -5px;
-      color: darkgrey;
-    }
-    .price {
-      padding-top: 0;
-      font-size: 40px;
-    }
-    .name {
-      font-size: 30px;
-      text-align: center;
-      margin: 10px 0 5px 0;
-    }
-    .text {
-      width: 50vw;
-      margin: 0 auto;
-    }
-    .text-center {
-      text-align: center;
-    }
-    .desc {
-      padding: 10px;
-      font-size: 22px;
-      font-weight: 500;
-    }
-    .left {
-      font-size: 25px;
-      padding: 10px;
-      font-weight: 600;
-      color: darkgray;
-    }
-    .label {
-      font-size: 15px;
-      text-align: center;
-      color: #e30682;
-      position: relative;
-      left: -50px;
-    }
-    .btn {
-      font-size: 20px;
-      margin: 0 10px;
-      width: 200px;
-      padding: 8px 10px;
-      border-radius: 100px;
-      border: none;
-      background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
-      box-shadow: 0px 4px 8px 0 rgba(0, 0, 0, 0.2);
-    }
-    .button-container {
-      margin-top: 40px;
-      display: flex;
-      flex-flow: row nowrap;
-      justify-content: center;
-    }
-  </style>
+
   <body>
-    <%- include ('partials/header') %> <%- include ('partials/sidenav') %>
     <div class="container"></div>
     <img
       src="data:image/jpeg;base64,<%=item.image.toString('base64')%>"
@@ -107,6 +29,7 @@
         <a href="update<%= item._id %> ">
           <button class="inline btn add">Update</button></a
         >
+        
       </div>
       <% } else { %>
       <div class="button-container">
@@ -123,10 +46,30 @@
 
       <div class="left text-center"><%= item.quantity %> Pieces left !</div>
     </div>
+    <% if (user.usertype == 'seller') { %>
+      <h1 class="title pro">Orders</h1>
+      <div class="items">
+        <% for( let i = 0; i < item.customers.length; i++ ) { element = item.customers[i] %>
+  
+        <div class="products">
+          <%= element.name %> <br />
+          <%= element.email %> <br />
+          <img
+            src="https://api.adorable.io/avatars/300/<%= element.name %>"
+            alt=""
+            class="dash-img"
+          />
+        </div>
+        <% } %>
+      </div>
+    <% } %>
+
+    
+
     <script>
       async function buy(id) {
         console.log('hello');
-        let fe = await fetch('/purchase', {
+        let fe = await fetch(`/purchase${id}`, {
           method: 'POST',
           headers: {
             'content-type': 'application/json',

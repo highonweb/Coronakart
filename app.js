@@ -3,7 +3,7 @@ const app = express();
 const mongoose = require('mongoose');
 const session = require('express-session');
 const dotenv = require('dotenv').config();
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const MongoStore = require('connect-mongo')(session);
 const mongoDB = process.env.mongo;
 
@@ -35,7 +35,7 @@ const routes = require('./routes/router');
 app.use('/', routes);
 app.use(function (req, res, next) {
   if (req.session.userId == undefined) {
-    return res.send('User Unauthorised');
+    return res.redirect('/');
   }
   next();
 });

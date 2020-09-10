@@ -13,20 +13,16 @@ router.get('/buyer', async (req, res, next) => {
   try {
     const user = await User.findById(req.session.userId).populate('products');
     const items = await Item.find({});
-    console.log(user);
+
     return res.render('dashboard', {user: user, items: items});
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 });
 router.get('/seller', async (req, res, next) => {
   try {
     const user = await User.findById(req.session.userId).populate('products');
-    console.log(user);
+
     return res.render('dashboard', {user: user});
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 });
 
 router.get('/logout', async (req, res, next) => {
@@ -41,16 +37,17 @@ router.get('/logout', async (req, res, next) => {
 });
 
 router.get('/item:id', async (req, res) => {
-  const item = await Item.findById(req.params.id);
+  const item = await (await Item.findById(req.params.id))
+    .populate('customers')
+    .execPopulate();
   const user = await User.findById(req.session.userId);
-  res.render('item', {item: item, user: user});
+  return res.render('item', {item: item, user: user});
 });
 
 router.post(
   '/seller/addp',
   multer({dest: 'uploads/'}).single('img'),
   async (req, res, next) => {
-    console.log(req.body);
     const img = fs.readFileSync(req.file.path);
     const encodeImage = img.toString('base64');
     const image = Buffer.from(encodeImage, 'base64');
@@ -65,7 +62,7 @@ router.post(
     const user = await User.findByIdAndUpdate(req.session.userId, {
       $push: {products: item},
     });
-    console.log(item);
+
     return res.redirect('/seller');
   }
 );
@@ -75,18 +72,20 @@ router.get('/a2c:id', async (req, res, next) => {
   user.products.push(item);
   user.save();
 
-  console.log(user);
   res.redirect('buyer');
 });
-router.post('/purchase', async (req, res, next) => {
-  console.log(req.body);
-  const item = await Item.findById(req.params.id);
+router.post('/purchase:id', async (req, res, next) => {
   const user = await User.findById(req.session.userId);
-  user.history.push(req.body.items);
+  const item = await Item.findById(req.params.id);
+  item.quantity -= 1;
+  item.customers.push(user);
+  item.save();
+  user.history.push({pro: req.body.items, stype: 'item'});
   user.save();
   const seller = await User.findById(item.seller);
-  seller.history.push(item);
-  console.log(user);
+  seller.history.push({pro: user, stype: 'user'});
+  seller.save();
+
   res.json('success');
 });
 router.get('/remove:id', async (req, res, next) => {
@@ -101,16 +100,64 @@ router.get('/update:id', async (req, res, next) => {
   res.render('update', {item: item});
 });
 router.post('/seller/updp:id', async (req, res, next) => {
-  console.log(req.body);
-  const item = await Item.findByIdAndUpdate(req.params.id, req.body);
+  await Item.findByIdAndUpdate(req.params.id, req.body);
   return res.redirect('/item' + req.params.id);
 });
 router.get('/profile', async (req, res, next) => {
-  const user = await User.findById(req.session.userId)
-    .populate('products')
-    .populate('history');
-  res.render('profile', {user: user});
+  const user = await User.findById(req.session.userId);
+  const history = user.history;
+
+  let promises;
+  console.log(user);
+  if (user.usertype == 'seller') {
+    console.log('seller');
+    promises = history.map(async (his) => {
+      return User.findById(his.pro);
+    });
+  } else {
+    console.log('buyer');
+    promises = history.map(async (his) => {
+      return Item.findById(his.pro);
+    });
+  }
+  let datearr = [];
+  history.forEach((his) => {
+    datearr.push(his.date);
+  });
+  let his = await Promise.all(promises);
+
+  res.render('profile', {user: user, his: his, datearr});
 });
-router.post('/edit', async (req, res, next) => {});
-router.post('/find', async (req, res, next) => {});
+router.post('/search', async (req, res, next) => {
+  let sterm = String(req.body.sterm);
+  try {
+    let stud = await Student.find({name: {$regex: sterm, $options: 'i'}});
+
+    res.json(stud);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get('/checkout', async (req, res, next) => {
+  const user = await User.findById(req.session.userId).populate('products');
+  for (let i = 0; i < user.products.length; i++) {
+    const element = user.products[i]._id;
+    const item = await Item.findById(element);
+    item.quantity -= 1;
+    item.customers.push(user);
+    item.save();
+    user.history.push({pro: req.body.items, stype: 'item'});
+    user.save();
+    const seller = await User.findById(item.seller);
+    seller.history.push({pro: user, stype: 'user'});
+    seller.save();
+  }
+  console.log('chec');
+  await User.findByIdAndUpdate(req.session.userId, {$set: {products: []}});
+  res.json('success');
+});
+router.get('/clear', async (req, res, next) => {
+  await User.findByIdAndUpdate(req.session.userId, {$set: {products: []}});
+});
 module.exports = router;

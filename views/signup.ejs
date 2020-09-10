@@ -45,19 +45,6 @@ so click cautiously"
         >
       </form>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script>
-      function famid() {
-        fetch(`https://strong-ties.herokuapp.com/api/nfamid`)
-          .then((response) => response.json())
-          .then((famid) => {
-            var fam = document.getElementById('fam');
-            fam.readOnly = 'true';
-            var butt = document.getElementById('fambutt');
-            fam.value = String(famid);
-            butt.removeAttribute('onclick');
-          });
-      }
-    </script>
+
   </body>
 </html>

@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const User = require('./user');
 const Schema = mongoose.Schema;
 console.log('ello there');
 const itemSchema = new Schema({
@@ -8,7 +9,13 @@ const itemSchema = new Schema({
   image: Buffer,
   price: String,
   quantity: Number,
+  customers: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+    },
+  ],
 });
 // Compile model from schema
-const item = mongoose.model('item', itemSchema);
-module.exports = item;
+const Item = mongoose.model('item', itemSchema);
+module.exports = Item;

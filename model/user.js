@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
 const Schema = mongoose.Schema;
+const bcrypt = require('bcryptjs');
 const Item = require('./item.js');
 const UserSchema = new Schema({
   usertype: String,
@@ -17,9 +17,10 @@ const UserSchema = new Schema({
   history: [
     {
       date: {type: Date, default: Date.now()},
-      purchase: {
+      stype: {type: String},
+      pro: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: Item,
+        refPath: 'stype',
       },
     },
   ],
@@ -50,5 +51,5 @@ UserSchema.statics.authenticate = function (username, password, callback) {
 
 // hashing a password before saving it to the database
 
-const User = mongoose.model('user', UserSchema);
+const User = mongoose.model('User', UserSchema);
 module.exports = User;

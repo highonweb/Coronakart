@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const User = require('../model/user.js');
 const express = require('express');
+const bcrypt = require('bcryptjs');
 const router = express.Router();
 router.get('/signin', async (req, res, next) => {
   try {
@@ -46,19 +47,15 @@ router.post('/sellerlog', async (req, res, next) => {
 });
 
 router.post('/buyer', async (req, res, next) => {
-  let userdata = {
+  const userdata = {
     name: req.body.name,
     email: req.body.email,
     usertype: 'buyer',
     password: req.body.password,
   };
   console.log(userdata);
-  bcrypt.hash(userdata.password, 10, function (err, hash) {
-    if (err) {
-      return next(err);
-    }
-    userdata.password = hash;
-  });
+  userdata.password = await bcrypt.hash(userdata.password, 10);
+  console.log(userdata);
   const user = await User.create(userdata);
   console.log(user);
   req.session.userId = user.id;
@@ -68,19 +65,14 @@ router.get('/', async (req, res, next) => {
   return res.render('index');
 });
 router.post('/seller', async (req, res, next) => {
-  let userdata = {
+  const userdata = {
     name: req.body.name,
     email: req.body.email,
     usertype: 'seller',
     password: req.body.password,
   };
-  console.log(userdata);
-  bcrypt.hash(userdata.password, 10, function (err, hash) {
-    if (err) {
-      return next(err);
-    }
-    userdata.password = hash;
-  });
+
+  userdata.password = await bcrypt.hash(userdata.password, 10);
   const user = await User.create(userdata);
   console.log(user);
   req.session.userId = user.id;

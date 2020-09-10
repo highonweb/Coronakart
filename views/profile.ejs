@@ -4,62 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Coronacopia</title>
-    <style>
-      .profile {
-        width: 100%;
-        min-height: 35vh;
-        margin: 30px 0;
-        background-image: url('images/probg.jpg');
-        padding: 0;
-        display: flex;
-        flex-flow: row;
-        justify-content: space-around;
-      }
-      .text-wrapper {
-        width: 30%;
-        text-align: center;
-        padding: 10px;
-        height: 100%;
-      }
-      img {
-        width: 300px;
-        border-radius: 10px;
-        border: solid 4px white;
-        margin: 30px;
-      }
+    <link rel="stylesheet" href="main.css" />
 
-      .info {
-        background-color: rgba(26, 26, 26, 0.6);
-        color: white;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 8px;
-        padding: 25px 30px;
-        height: auto;
-        margin: 40px;
-        flex-flow: column;
-      }
-      body {
-        margin: 0;
-      }
-      .text {
-        background-color: rgba(26, 26, 26, 0.6);
-        border-bottom: 1px solid rgba(10, 10, 10, 0.8);
-        display: block;
-        margin: 0;
-        font-size: 22px;
-        width: 100%;
-        padding: 15px;
-        transition: 500ms;
-      }
-      .text:hover {
-        border-left: 5px solid rgb(253, 129, 149);
-      }
-    </style>
   </head>
+
   <body>
-    <div class="profile">
+    <div class="profiler">
       <div class="text-wrapper info">
         <div class="text"><%= user.name %></div>
         <div class="text"><%= user.usertype %></div>
@@ -69,13 +19,40 @@
         <img
           src="https://api.adorable.io/avatars/3
         00/<%= user.name %> "
+        class="smile"
         />
       </div>
     </div>
-    <% for( let i = 0; i < user.products.length; i++ ) { %>
-    <div class=""><%= user.products[i] %></div>
-    <% } %> <% for( let i = 0; i < user.history.length; i++ ) { %>
-    <div class=""><%= user.history[i] %></div>
-    <% } %>
+
+    <% if(user.usertype == "seller"){ %>
+    <h1 class="title pro">Customers</h1>
+    <%}else{%>
+    <h1 class="title pro">Purchase History</h1>
+    <%}%>
+
+    <div class="items">
+      <% for( let i = 0; i < his.length; i++ ) { element = his[i] %>
+
+      <div class="products">
+        <a href="item<%= element._id %> ">
+          <%= element.name %> <br />
+          <%= element.email %> <br />
+          <%= datearr[i] %> <% if(user.usertype == "seller"){ %>
+          <img
+            src="https://api.adorable.io/avatars/300/<%=element.name%>"
+            alt=""
+            class="dash-img"
+          />
+          <%}else{%> <%= '$'+element.price %> <br />
+          <img
+            src="data:image/jpeg;base64,<%=element.image.toString('base64')%>"
+            alt=""
+            class="dash-img"
+          />
+          <%}%>
+        </a>
+      </div>
+      <% } %>
+    </div>
   </body>
 </html>
