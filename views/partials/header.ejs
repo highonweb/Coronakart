@@ -6,10 +6,11 @@
   </div>
   <div class="search">
     <input class="sbar" onkeyup="autoc()" type="text" id="search" />
-    <button class="sbtn" onclick="clicksear()">
+    
+    <button class="sbtn" onclick="search(this)">
       <i class="fas fa-search"></i>
     </button>
-  </div>
+  </div>  
   <div class="profile">
     <img
       class="profileimg"
@@ -21,7 +22,6 @@
     <i class="fas fa-shopping-cart"></i> &nbsp;<%= user.products.length %>
   </div>
 </div>
-
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Lemon&family=Syne:wght@500&display=swap');
 

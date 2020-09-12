@@ -36,6 +36,20 @@ router.get('/logout', async (req, res, next) => {
   });
 });
 
+router.get('/img:id', async (req, res) => {
+  console.log(req.params.id);
+  debugger;
+  let img = await Item.findById(req.params.id);
+  img = img.image.toString('base64');
+  img = Buffer.from(img, 'base64');
+
+  res.writeHead(200, {
+    'Content-Type': 'image/png',
+    'Content-Length': img.length,
+  });
+  res.end(img);
+});
+
 router.get('/item:id', async (req, res) => {
   const item = await (await Item.findById(req.params.id))
     .populate('customers')
@@ -130,10 +144,11 @@ router.get('/profile', async (req, res, next) => {
 });
 router.post('/search', async (req, res, next) => {
   let sterm = String(req.body.sterm);
+  let user = await User.findById(req.session.userId);
+  console.log(sterm);
   try {
-    let stud = await Student.find({name: {$regex: sterm, $options: 'i'}});
-
-    res.json(stud);
+    console.log(item);
+    res.json(item);
   } catch (err) {
     next(err);
   }

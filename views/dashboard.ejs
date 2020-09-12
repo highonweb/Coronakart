@@ -24,7 +24,6 @@
     </div>
   </div>
   <div class="add" onclick="openadd(this)"><i class="fas fa-plus"></i></div>
-
   <script>
     const openadd = (btn) => {
       btn.style.transform = 'rotate(45deg)';
@@ -42,6 +41,13 @@
   <% } %> <%- include ('partials/sidenav') %> <%- include ('partials/cart') %>
   <div id="main">
     <%- include ('partials/header') %>
+    <% if(user.usertype == 'buyer') { %>
+      <div class="ac"><div ></div><div ></div><div class="res">
+      
+      </div><div></div>
+    <% } %>
+    
+</div>
     <div class="dash">
       <div class="items">
         <% if (user.usertype =='seller') { %>
@@ -70,6 +76,7 @@
 
  
   <script src="https://kit.fontawesome.com/c5b9bcd338.js" crossorigin="anonymous"></script>
+  <script src="index.js"></script>
 </body>
 
 </html>

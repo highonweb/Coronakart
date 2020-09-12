@@ -150,7 +150,26 @@ html {
 }
 
 /* Change the color of links on hover */
-
+.ac {
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 2fr 19fr 1fr 2fr;
+  justify-items: center;
+  position: relative;
+  top: -27px;
+}
+.acres,
+.res {
+  background: white;
+  width: 89.9%;
+  border: 1px solid darkgrey;
+  padding: 10px;
+  color: darkgray;
+  font-size: 30px;
+}
+.acres:hover {
+  background: darkgrey;
+}
 /* Add a color to the active/current link */
 .topnav a.active,
 .topnav a:hover {
@@ -163,8 +182,6 @@ html {
   padding-top: 20vh;
   border-radius: 0 20px 20px 0;
   font-size: 25px;
-}
-.content {
   display: flex;
   flex-flow: row nowrap;
 }
@@ -324,7 +341,7 @@ body {
   margin: 0;
 }
 .profileimage {
-  border-radius: 50%;
+  border-radius: 20%;
   width: 100px;
 }
 .sidenav {
@@ -388,16 +405,6 @@ input[type='text']:not(.sbar) {
   height: 5vh;
   padding: 10px;
 }
-textarea {
-  background-color: white;
-  border-radius: 10px;
-  margin: 10px;
-  width: 370px;
-  font-size: 20px;
-  padding: 10px;
-
-  height: 150px;
-}
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
 * {
   font-family: 'Poppins', sans-serif;
@@ -446,11 +453,6 @@ textarea {
   font-size: 22px;
   font-weight: 500;
 }
-.items {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-}
 
 a {
   text-decoration: none;
@@ -463,22 +465,6 @@ a {
   object-fit: cover;
 }
 
-.products {
-  border-radius: 20px;
-  background-image: linear-gradient(180deg, #13547a 0%, #80d0c7 100%);
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
-  text-align: center;
-  width: 400px;
-  transition: linear 200ms;
-  padding: 20px;
-  font-size: 24px;
-  margin: 1vw;
-  color: white;
-}
-
-.products:hover {
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.4);
-}
 .left {
   font-size: 25px;
   padding: 10px;
@@ -531,12 +517,6 @@ a {
   position: unset !important;
 }
 
-.items {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
 a {
   text-decoration: none;
   color: white;
@@ -548,39 +528,6 @@ a {
   object-fit: cover;
   border-radius: 10px;
   border: solid 4px white;
-}
-.items {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-a {
-  text-decoration: none;
-  color: white;
-}
-
-.dash-img {
-  width: 360px;
-  height: 240px;
-  object-fit: cover;
-}
-
-.products {
-  border-radius: 20px;
-  background-image: linear-gradient(180deg, #13547a 0%, #80d0c7 100%);
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
-  text-align: center;
-  width: 20vw;
-  transition: linear 200ms;
-  padding: 20px;
-  font-size: 24px;
-  margin: 1vw;
-  color: white;
-}
-
-.products:hover {
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.4);
 }
 
 .add {
@@ -653,22 +600,6 @@ input[type='submit'] {
 input[type='submit']:hover {
   background-image: linear-gradient(to right, #43e97b 0%, #38f9d7 100%);
 }
-.products {
-  border-radius: 20px;
-  background-image: linear-gradient(180deg, #13547a 0%, #80d0c7 100%);
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
-  text-align: center;
-  width: 20vw;
-  transition: linear 200ms;
-  padding: 20px;
-  font-size: 24px;
-  margin: 1vw;
-  color: white;
-}
-
-.products:hover {
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.4);
-}
 
 .info {
   background-color: rgba(26, 26, 26, 0.6);
@@ -700,43 +631,4 @@ body {
 
 .text:hover {
   border-left: 5px solid rgb(253, 129, 149);
-}
-
-input[type='text']:not(.sbar),
-input[type='number'] {
-  -webkit-appearance: none;
-  border-radius: 10px;
-  font-size: 20px;
-  margin: 10px;
-  width: 20vw;
-  height: 4vh;
-  padding: 10px;
-}
-textarea {
-  background-color: white;
-  border-radius: 10px;
-  color: black;
-  margin: 10px;
-  width: 370px;
-  font-size: 20px;
-  padding: 10px;
-
-  height: 150px;
-}
-.newitem {
-  text-align: center;
-}
-input[type='submit'] {
-  background-image: linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%);
-  color: whitesmoke;
-  font-size: 2vw;
-  font-family: 'lemon', cursive;
-  padding: 10px;
-  margin-top: 20px;
-  cursor: pointer;
-  border-radius: 100px;
-  text-decoration: none;
-}
-input[type='submit']:hover {
-  background-image: linear-gradient(to right, #43e97b 0%, #38f9d7 100%);
 }
