@@ -53,6 +53,10 @@ router.post('/buyer', async (req, res, next) => {
     usertype: 'buyer',
     password: req.body.password,
   };
+  const a = await User.exists({email: req.body.email});
+  if (a) {
+    return res.send('user name is already taken');
+  }
   console.log(userdata);
   userdata.password = await bcrypt.hash(userdata.password, 10);
   console.log(userdata);
@@ -71,7 +75,10 @@ router.post('/seller', async (req, res, next) => {
     usertype: 'seller',
     password: req.body.password,
   };
-
+  const a = await User.exists({email: req.body.email});
+  if (a) {
+    return res.send('user name is already taken');
+  }
   userdata.password = await bcrypt.hash(userdata.password, 10);
   const user = await User.create(userdata);
   console.log(user);
