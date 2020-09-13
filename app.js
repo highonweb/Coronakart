@@ -5,7 +5,8 @@ const session = require('express-session');
 const dotenv = require('dotenv').config();
 const bcrypt = require('bcryptjs');
 const MongoStore = require('connect-mongo')(session);
-const mongoDB = process.env.mongo;
+const mongoDB =
+  'mongodb+srv://dbuser:dbkey@myclouddb.arw5e.mongodb.net/corona?retryWrites=true&w=majority';
 
 mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
 const db = mongoose.connection;
